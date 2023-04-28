@@ -1,0 +1,53 @@
+1) SELECT `students`.`name`, `students`.`surname`, `degrees`.`name` AS `degrees`
+FROM `students`
+INNER JOIN `degrees`
+ON `students`.`degree_id` = `degrees`.`id` 
+WHERE `degrees`.`name` = "Corso di Laurea in Economia";
+
+
+2) SELECT `degrees`.`id`, `degrees`.`name` AS `degree`, `degrees`.`level`, `departments`.`name` AS `department` 
+FROM `degrees`
+INNER JOIN `departments`
+ON `degrees`.`department_id` = `departments`.`id`
+WHERE `degrees`.`level` = "magistrale" 
+AND `departments`.`name` = "Dipartimento di Neuroscienze";
+
+
+3) SELECT `course_teacher`.`course_id`, `teachers`.`id` AS `teacher_id`, `teachers`.`name`, `teachers`.`surname`
+FROM `course_teacher`
+INNER JOIN `teachers`
+ON `course_teacher`.`teacher_id` = `teachers`.`id`
+WHERE `teachers`.`id` = 44;
+
+
+4) SELECT `students`.`surname` AS `student_surname`, `students`.`name` AS `student_name`, `degrees`.`name` AS `deegree`, `departments`.`name` AS `department` 
+FROM `students` 
+INNER JOIN `degrees` 
+ON `students`.`degree_id` = `degrees`.`id` 
+INNER JOIN `departments`
+ON `degrees`.`department_id` = `departments`.`id` 
+ORDER BY `student_surname`, `student_name`  ASC;
+
+
+5) SELECT `degrees`.`id`, `degrees`.`name` AS `degree`, `courses`.`name` AS `course`, `course_teacher`.`teacher_id`, `teachers`.`name` AS `teacher_name`, `teachers`.`surname` as `teacher_surname`
+FROM `degrees`
+LEFT JOIN `courses`
+ON `degrees`.`id` = `courses`.`degree_id`
+LEFT JOIN `course_teacher`
+ON `courses`.`id` = `course_teacher`.`course_id`
+LEFT JOIN `teachers`
+ON `course_teacher`.`teacher_id` = `teachers`.`id`
+
+
+6) SELECT `teachers`.`name` AS `teacher_name`, `teachers`.`surname` AS `teacher_surname`, `courses`.`name` AS `course`, `degrees`.`name` AS `degrees`,
+`departments`.`name` AS `department`
+FROM `teachers`
+INNER JOIN `course_teacher`
+ON `teachers`.`id` = `course_teacher`.`teacher_id`
+INNER JOIN `courses`
+ON `course_teacher`.`course_id` = `courses`.`id`
+INNER JOIN `degrees`
+ON `courses`.`degree_id` = `degrees`.`id`
+INNER JOIN `departments`
+ON `degrees`.`department_id` = `departments`.`id`
+WHERE `departments`.`id` = 5;
